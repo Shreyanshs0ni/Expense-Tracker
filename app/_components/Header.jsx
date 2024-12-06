@@ -7,7 +7,7 @@ const Header = () => {
     <div className="p-3 flex justify-between items-center border shadow-sm">
       <div className="flex items-center gap-2">
         <Image src={"./logo.svg"} alt="logo" width={50} height={50} />{" "}
-        <h1 className="underline">Expense Tracker</h1>
+        <h1 className="tracking-wide">Expense Tracker</h1>
       </div>
       <Button size="sm">Get Started</Button>
     </div>
