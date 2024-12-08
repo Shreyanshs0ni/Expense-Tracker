@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import Image from "next/image";
 import Dashboard from "../page";
 import Link from "next/link";
@@ -52,7 +51,7 @@ const SideNav = () => {
       </div>
       <div className=" pt-8">
         {menuList.map((menu, index) => (
-          <Link href={menu.path}>
+          <Link href={menu.path} key={menu.id}>
             <h2
               className={`flex gap-2 items-center text-zinc-700 font-medium p-5 cursor-pointer rounded-md hover:text-zinc-900 hover:bg-primary/90 mb-2 ${
                 path == menu.path && "text-zinc-900 bg-primary/90"
