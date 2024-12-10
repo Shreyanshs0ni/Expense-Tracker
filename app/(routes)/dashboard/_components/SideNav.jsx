@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Dashboard from "../page";
 import Link from "next/link";
+import { useEffect } from "react";
 import {
   icons,
   LayoutGrid,
