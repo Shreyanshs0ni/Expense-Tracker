@@ -3,35 +3,44 @@ import { eq } from "drizzle-orm";
 import React, { useEffect } from "react";
 import SideNav from "./_components/SideNav";
 import DashboardHeader from "./_components/DashboardHeader";
-import Budgets from "./budgets/page";
+import { db } from "@/utils/dbConfig";
+import { Budgets } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
-import { DevBundlerService } from "next/dist/server/lib/dev-bundler-service";
+import { useRouter } from "next/navigation";
 
 const DashboardLayout = ({ children }) => {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
+  const router = useRouter();
 
   useEffect(() => {
-    user && checkUserBudgets();
-  }, [user]);
+    if (isLoaded && user) {
+      checkUserBudgets();
+    }
+  }, [user, isLoaded]);
 
   const checkUserBudgets = async () => {
-    const result = await DevBundlerService.select()
-      .from(Budgets)
-      .where(
-        eq(
-          Budgets.createdBy,
-          user ? user.primaryEmailAddress?.emailAddress : null
-        )
-      );
-    console.log(result);
+    try {
+      const result = await db
+        .select()
+        .from(Budgets)
+        .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress));
+
+      console.log(result);
+
+      if (result.length === 0) {
+        router.replace("/dashboard/budgets");
+      }
+    } catch (error) {
+      console.error("Error checking user budgets:", error);
+    }
   };
 
   return (
     <div>
-      <div className="fixed md:w-64 hidden md:block">
+      <div className="fixed hidden md:block md:w-64">
         <SideNav />
       </div>
-      <div className="md:ml-64 bg-gray-50">
+      <div className="bg-gray-50 md:ml-64">
         <DashboardHeader />
         {children}
       </div>

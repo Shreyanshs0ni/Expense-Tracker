@@ -45,17 +45,17 @@ const SideNav = () => {
   //   console.log(path);
   // });
   return (
-    <div className="h-screen p-5 border shadow-sm">
+    <div className="h-screen border p-5 shadow-sm">
       <div className="flex items-center gap-2">
         <Image src={"./logo.svg"} alt="logo" width={50} height={50} />{" "}
         <h1 className="tracking-wide">Expense Tracker</h1>
       </div>
-      <div className=" pt-8">
+      <div className="pt-8">
         {menuList.map((menu, index) => (
           <Link href={menu.path} key={menu.id}>
             <h2
-              className={`flex gap-2 items-center text-zinc-700 font-medium p-5 cursor-pointer rounded-md hover:text-zinc-900 hover:bg-primary/90 mb-2 ${
-                path == menu.path && "text-zinc-900 bg-primary/90"
+              className={`mb-2 flex cursor-pointer items-center gap-2 rounded-md p-5 font-medium text-zinc-700 hover:bg-primary/90 hover:text-zinc-900 ${
+                path == menu.path && "bg-primary/90 text-zinc-900"
               }`}
             >
               <menu.icon />
@@ -64,9 +64,9 @@ const SideNav = () => {
           </Link>
         ))}
       </div>
-      <div className="fixed bottom-10 p-5 flex gap-2 items-center ">
+      <div className="fixed bottom-10 flex items-center gap-2 p-5">
         <UserButton />
-        <h2 className="text-zinc-700 text-sm"> Profile</h2>
+        <h2 className="text-sm text-zinc-700"> Profile</h2>
       </div>
     </div>
   );
