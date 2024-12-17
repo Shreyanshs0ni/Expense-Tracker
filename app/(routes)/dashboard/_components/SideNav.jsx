@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Dashboard from "../page";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   icons,
   LayoutGrid,
@@ -14,6 +14,8 @@ import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 
 const SideNav = () => {
+  
+
   const menuList = [
     {
       id: 1,
@@ -47,7 +49,7 @@ const SideNav = () => {
   return (
     <div className="h-screen border p-5 shadow-sm">
       <div className="flex items-center gap-2">
-        <Image src={"./logo.svg"} alt="logo" width={50} height={50} />{" "}
+        <Image src="/logo.svg" alt="logo" width={50} height={50} />{" "}
         <h1 className="tracking-wide">Expense Tracker</h1>
       </div>
       <div className="pt-8">
