@@ -14,8 +14,6 @@ import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 
 const SideNav = () => {
-  
-
   const menuList = [
     {
       id: 1,

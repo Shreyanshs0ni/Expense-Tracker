@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import CreateBudget from "./CreateBudget";
-import { getTableColumns } from "drizzle-orm";
+import { desc, getTableColumns } from "drizzle-orm";
 import { Expenses, Budgets } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import { db } from "@/utils/dbConfig";
@@ -26,7 +26,8 @@ const BudgetList = () => {
       .from(Budgets)
       .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
       .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))
-      .groupBy(Budgets.id);
+      .groupBy(Budgets.id)
+      .orderBy(desc(Budgets.id));
     setBudgetList(result);
   }, [user]);
 
