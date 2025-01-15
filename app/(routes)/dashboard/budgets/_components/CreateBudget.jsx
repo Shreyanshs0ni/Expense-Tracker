@@ -19,14 +19,24 @@ import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { Budgets } from "@/utils/schema";
 
-const CreateBudget = () => {
+const CreateBudget = ({ setBudgetList }) => {
   const [emojiIcon, setEmojiIcon] = useState("😃");
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState(0);
 
   const { user } = useUser();
+
   const onCreateBudget = async () => {
+    setBudgetList((prev) => [
+      ...prev,
+      {
+        name,
+        amount,
+        icon: emojiIcon,
+      },
+    ]);
+
     const result = await db
       .insert(Budgets)
       .values({
