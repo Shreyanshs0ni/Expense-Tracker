@@ -11,8 +11,8 @@ import { eq } from "drizzle-orm";
 import BudgetItem from "./BudgetItem";
 
 const BudgetList = () => {
-  const [budgetList, setBudgetList] = useState([]);
   const { user } = useUser();
+  const [budgetList, setBudgetList] = useState([]);
 
   const getBudgetList = useCallback(async () => {
     const result = await db
@@ -37,10 +37,17 @@ const BudgetList = () => {
   return (
     <div className="mt-6">
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-        <CreateBudget setBudgetList={setBudgetList} />
-        {budgetList.map((budget, index) => (
-          <BudgetItem key={index} budget={budget} />
-        ))}
+        <CreateBudget refreshData={() => getBudgetList()} />
+        {budgetList?.length > 0
+          ? budgetList.map((budget, index) => (
+              <BudgetItem key={index} budget={budget} />
+            ))
+          : [1, 2, 3, 4, 5, 6].map((item, index) => (
+              <div
+                key={index}
+                className="h-[150px] w-full animate-pulse rounded-lg bg-slate-200"
+              ></div>
+            ))}
       </div>
     </div>
   );

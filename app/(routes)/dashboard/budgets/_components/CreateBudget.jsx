@@ -19,7 +19,7 @@ import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { Budgets } from "@/utils/schema";
 
-const CreateBudget = ({ setBudgetList }) => {
+const CreateBudget = ({ refreshData }) => {
   const [emojiIcon, setEmojiIcon] = useState("😃");
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [name, setName] = useState("");
@@ -28,15 +28,6 @@ const CreateBudget = ({ setBudgetList }) => {
   const { user } = useUser();
 
   const onCreateBudget = async () => {
-    setBudgetList((prev) => [
-      ...prev,
-      {
-        name,
-        amount,
-        icon: emojiIcon,
-      },
-    ]);
-
     const result = await db
       .insert(Budgets)
       .values({
@@ -48,6 +39,7 @@ const CreateBudget = ({ setBudgetList }) => {
       .returning({ insertedId: Budgets.id });
 
     if (result) {
+      refreshData();
       toast("New Budget Created!");
     }
   };
