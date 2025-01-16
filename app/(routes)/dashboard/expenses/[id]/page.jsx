@@ -20,9 +20,10 @@ import {
 
 import BudgetItem from "../../budgets/_components/BudgetItem";
 import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
+import { PenBox, Trash } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import EditBudget from "../_components/EditBudget";
 
 const ExpensesScreen = ({ params }) => {
   const { user } = useUser();
@@ -80,33 +81,40 @@ const ExpensesScreen = ({ params }) => {
     <div className="p-10">
       <h2 className="flex items-center justify-between text-2xl font-bold">
         My Expenses
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button
-              className="flex items-center justify-center gap-2"
-              variant="destructive"
-            >
-              <Trash />
-              <span>Delete</span>
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your
-                current budget along with expenses and remove your data from our
-                servers.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={deleteBudget}>
-                Continue
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <div className="flex items-center gap-2">
+          <EditBudget
+            budgetInfo={budgetInfo}
+            refreshData={() => getBudgetInfo()}
+          />
+
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                className="flex items-center justify-center gap-2"
+                variant="destructive"
+              >
+                <Trash />
+                <span>Delete</span>
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your current budget along with expenses and remove your data
+                  from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={deleteBudget}>
+                  Continue
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </h2>
       <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
         {budgetInfo ? (
