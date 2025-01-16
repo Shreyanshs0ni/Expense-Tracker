@@ -1,13 +1,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,13 +15,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={poppins.className}>
+    <html lang="en">
+      <body className={poppins.className}>
+        <ClerkProvider>
           <Toaster />
           {children}
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>{" "}
+      </body>
+    </html>
   );
 }
