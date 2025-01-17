@@ -62,44 +62,45 @@ const EditBudget = ({ budgetInfo, refreshData }) => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Update Budget</DialogTitle>
-            <DialogDescription>
-              <div className="mt-5">
-                <Button
-                  variant="outline"
-                  className="text-2xl"
-                  onClick={() => setOpenEmojiPicker(!openEmojiPicker)}
-                >
-                  {emojiIcon}
-                </Button>
-                <div className="absolute z-10">
-                  <EmojiPicker
-                    open={openEmojiPicker}
-                    onEmojiClick={(e) => {
-                      setEmojiIcon(e.emoji);
-                      setOpenEmojiPicker(false);
-                    }}
-                  />
-                </div>
-                <div className="mt-2">
-                  <h2 className="my-2 font-medium text-black">Budget Name</h2>
-                  <Input
-                    placeholder="e.g. Home Decor"
-                    defaultValue={budgetInfo?.name}
-                    onChange={(e) => setName(e.target.value)}
-                  ></Input>
-                </div>
-                <div className="mt-2">
-                  <h2 className="my-2 font-medium text-black">Budget Amount</h2>
-                  <Input
-                    placeholder="e.g. 5000$"
-                    defaultValue={budgetInfo?.amount}
-                    type="number"
-                    onChange={(e) => setAmount(e.target.value)}
-                  ></Input>
-                </div>
-              </div>
-            </DialogDescription>
           </DialogHeader>
+          <DialogDescription>
+            <div className="mt-5">
+              <Button
+                variant="outline"
+                className="text-2xl"
+                onClick={() => setOpenEmojiPicker(!openEmojiPicker)}
+              >
+                {emojiIcon}
+              </Button>
+              <div className="absolute z-10">
+                <EmojiPicker
+                  open={openEmojiPicker}
+                  onEmojiClick={(e) => {
+                    setEmojiIcon(e.emoji);
+                    setOpenEmojiPicker(false);
+                  }}
+                />
+              </div>
+              <div className="mt-2">
+                <h2 className="my-2 font-medium text-black">Budget Name</h2>
+                <Input
+                  placeholder="e.g. Home Decor"
+                  defaultValue={budgetInfo?.name}
+                  onChange={(e) => setName(e.target.value)}
+                ></Input>
+              </div>
+              <div className="mt-2">
+                <h2 className="my-2 font-medium text-black">Budget Amount</h2>
+                <Input
+                  placeholder="e.g. 5000$"
+                  defaultValue={budgetInfo?.amount}
+                  type="number"
+                  onChange={(e) => setAmount(e.target.value)}
+                ></Input>
+              </div>
+            </div>
+          </DialogDescription>
+
           <DialogFooter className="sm:justify-start">
             <DialogClose asChild>
               <Button
