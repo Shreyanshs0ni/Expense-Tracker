@@ -32,11 +32,16 @@ const ExpensesScreen = ({ params }) => {
   const [expensesList, setExpensesList] = useState();
   const route = useRouter();
 
-  useEffect(() => {
-    user && getBudgetInfo();
-  }, [user]);
+  const getExpensesList = async () => {
+    const result = await db
+      .select()
+      .from(Expenses)
+      .where(eq(Expenses.budgetId, unwrappedParams.id))
+      .orderBy(desc(Expenses.id));
+    setExpensesList(result);
+  };
 
-  const getBudgetInfo = async () => {
+  const getBudgetInfo = useCallback(async () => {
     const result = await db
       .select({
         ...getTableColumns(Budgets),
@@ -49,19 +54,19 @@ const ExpensesScreen = ({ params }) => {
       .where(eq(Budgets.id, unwrappedParams.id))
       .groupBy(Budgets.id);
     setBudgetInfo(result[0]);
-    getExpensesList();
-  };
+    await getExpensesList();
+  }, [
+    user?.primaryEmailAddress?.emailAddress,
+    unwrappedParams.id,
+    getExpensesList,
+  ]);
 
-  //get latest expenses
+  useEffect(() => {
+    if (user) {
+      getBudgetInfo();
+    }
+  }, [getBudgetInfo, user]);
 
-  const getExpensesList = async () => {
-    const result = await db
-      .select()
-      .from(Expenses)
-      .where(eq(Expenses.budgetId, unwrappedParams.id))
-      .orderBy(desc(Expenses.id));
-    setExpensesList(result);
-  };
   const deleteBudget = async () => {
     const deleteExpenseResult = await db
       .delete(Expenses)

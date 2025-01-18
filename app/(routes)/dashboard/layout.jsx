@@ -1,6 +1,6 @@
 "use client";
 import { eq } from "drizzle-orm";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import SideNav from "./_components/SideNav";
 import DashboardHeader from "./_components/DashboardHeader";
 import { db } from "@/utils/dbConfig";
@@ -13,18 +13,14 @@ const DashboardLayout = ({ children }) => {
   const { user, isLoaded } = useUser();
   const router = useRouter();
 
-  useEffect(() => {
-    if (isLoaded && user) {
-      checkUserBudgets();
-    }
-  }, [user, isLoaded]);
+  const checkUserBudgets = useCallback(async () => {
+    if (!user || !user.primaryEmailAddress) return;
 
-  const checkUserBudgets = async () => {
     try {
       const result = await db
         .select()
         .from(Budgets)
-        .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress));
+        .where(eq(Budgets.createdBy, user.primaryEmailAddress.emailAddress));
 
       if (result.length === 0) {
         router.replace("/dashboard/budgets");
@@ -32,7 +28,13 @@ const DashboardLayout = ({ children }) => {
     } catch (error) {
       console.error("Error checking user budgets:", error);
     }
-  };
+  }, [user, router]);
+
+  useEffect(() => {
+    if (isLoaded && user) {
+      checkUserBudgets();
+    }
+  }, [isLoaded, user, checkUserBudgets]);
 
   return (
     <div>

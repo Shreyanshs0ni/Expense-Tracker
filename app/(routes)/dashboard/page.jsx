@@ -74,7 +74,7 @@ const Dashboard = () => {
             refreshData={() => getBudgetList()}
           />
         </div>
-        <div className="grid gap-5">
+        <div className="grid">
           <h2 className="text-lg font-bold">Latest Budgets</h2>
           {budgetList ? (
             budgetList.map((budget, index) => {
