@@ -1,15 +1,15 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import CardInfo from "./_components/CardInfo";
-import BarChartDashboard from "./_components/BarChartDashboard";
+import CardInfo from "../_components/CardInfo";
+import BarChartDashboard from "../_components/BarChartDashboard";
 import { useUser } from "@clerk/nextjs";
 import { db } from "@/utils/dbConfig";
 import { desc, eq, getTableColumns, sql } from "drizzle-orm";
 import { Budgets, Expenses } from "@/utils/schema";
 import { BarChart } from "recharts";
-import BudgetItem from "./budgets/_components/BudgetItem";
+import BudgetItem from "../budgets/_components/BudgetItem";
 import { createDeflate } from "zlib";
-import ExpenseListTable from "./expenses/_components/ExpenseListTable";
+import ExpenseListTable from "./_components/ExpenseListTable";
 
 const Dashboard = () => {
   const [budgetList, setBudgetList] = useState();
@@ -57,33 +57,13 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-3xl font-bold">Hi, {user?.fullName} 💜</h2>
-      <p className="mt-2 text-gray-500">
-        Here&apos;s what happening with your money, lets Manage your expenses
-      </p>
-
-      <CardInfo budgetList={budgetList} />
-      <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
-        <div className="md:col-span-2">
-          <BarChartDashboard budgetList={budgetList} />
-          <h2 className="my-2 text-lg font-bold">Latest Expenses</h2>
-
-          <ExpenseListTable
-            expensesList={expensesList}
-            refreshData={() => getBudgetList()}
-          />
-        </div>
-        <div className="grid gap-5">
-          <h2 className="text-lg font-bold">Latest Budgets</h2>
-          {budgetList ? (
-            budgetList.map((budget, index) => {
-              return <BudgetItem budget={budget} key={index} />;
-            })
-          ) : (
-            <p>No budgets available.</p>
-          )}
-        </div>
+    <div className="p-10">
+      <h2 className="text-3xl font-bold">My Expenses</h2>
+      <div className="mt-4">
+        <ExpenseListTable
+          expensesList={expensesList}
+          refreshData={() => getBudgetList()}
+        />
       </div>
     </div>
   );

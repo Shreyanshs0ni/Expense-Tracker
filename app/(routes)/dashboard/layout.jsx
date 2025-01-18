@@ -7,6 +7,7 @@ import { db } from "@/utils/dbConfig";
 import { Budgets } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import AuthChecker from "@/app/_components/AuthChecker";
 
 const DashboardLayout = ({ children }) => {
   const { user, isLoaded } = useUser();
@@ -35,6 +36,8 @@ const DashboardLayout = ({ children }) => {
 
   return (
     <div>
+      <AuthChecker />
+
       <div className="fixed hidden md:block md:w-64">
         <SideNav />
       </div>

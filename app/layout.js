@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import AuthChecker from "./_components/AuthChecker";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,7 +21,7 @@ export default function RootLayout({ children }) {
         <ClerkProvider>
           <Toaster />
           {children}
-        </ClerkProvider>{" "}
+        </ClerkProvider>
       </body>
     </html>
   );

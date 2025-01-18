@@ -131,7 +131,8 @@ const ExpensesScreen = ({ params }) => {
         />
       </div>
       <div className="mt-4">
-       
+        <h2 className="mb-2 text-lg font-bold">Latest Expenses</h2>
+
         <ExpenseListTable
           expensesList={expensesList}
           refreshData={() => getBudgetInfo()}

@@ -18,8 +18,7 @@ const ExpenseListTable = ({ expensesList, refreshData }) => {
     }
   };
   return (
-    <div className="mt-3">
-      <h2 className="mb-2 text-lg font-bold">Latest Expenses</h2>
+    <div className="mt-4">
       <div className="grid grid-cols-4 bg-purple-200 p-2">
         <h2 className="font-bold">Name</h2>
         <h2 className="font-bold">Amount</h2>
