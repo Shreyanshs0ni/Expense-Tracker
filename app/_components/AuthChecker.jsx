@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import { Loader } from "lucide-react";
 import { useEffect } from "react";
@@ -8,19 +8,27 @@ import { useEffect } from "react";
 const AuthChecker = ({ children }) => {
   const { isSignedIn, isLoaded } = useAuth();
   const router = useRouter();
-
-  console.log("isSignedIn", isSignedIn);
-  console.log("isLoaded", isLoaded);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (isLoaded) {
-      if (isSignedIn) {
-        router.replace("/dashboard");
-      } else {
+      if (
+        !isSignedIn &&
+        !pathname.includes("sign-in") &&
+        !pathname.includes("sign-up")
+      ) {
         router.replace("/welcome");
       }
+      if (
+        isSignedIn &&
+        (pathname.includes("welcome") ||
+          pathname.includes("sign-in") ||
+          pathname.includes("sign-up"))
+      ) {
+        router.replace("/dashboard");
+      }
     }
-  }, [isLoaded, isSignedIn, router]);
+  }, [isLoaded, isSignedIn, router, pathname]);
 
   if (!isLoaded) {
     return <Loader />;

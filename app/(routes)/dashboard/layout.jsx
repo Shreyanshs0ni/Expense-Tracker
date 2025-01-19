@@ -38,7 +38,7 @@ const DashboardLayout = ({ children }) => {
 
   return (
     <div>
-      <AuthChecker />
+      {/* <AuthChecker /> */}
 
       <div className="fixed hidden md:block md:w-64">
         <SideNav />

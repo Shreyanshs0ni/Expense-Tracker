@@ -64,10 +64,7 @@ const SideNav = () => {
           </Link>
         ))}
       </div>
-      <div className="fixed bottom-10 flex items-center gap-2 p-5">
-        <UserButton />
-        <h2 className="text-sm text-zinc-700"> Profile</h2>
-      </div>
+      <div className="fixed bottom-10 flex items-center gap-2 p-5"></div>
     </div>
   );
 };

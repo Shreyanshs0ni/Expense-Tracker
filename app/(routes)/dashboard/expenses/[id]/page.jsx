@@ -32,14 +32,14 @@ const ExpensesScreen = ({ params }) => {
   const [expensesList, setExpensesList] = useState();
   const route = useRouter();
 
-  const getExpensesList = async () => {
+  const getExpensesList = useCallback(async () => {
     const result = await db
       .select()
       .from(Expenses)
       .where(eq(Expenses.budgetId, unwrappedParams.id))
       .orderBy(desc(Expenses.id));
     setExpensesList(result);
-  };
+  }, [unwrappedParams.id]);
 
   const getBudgetInfo = useCallback(async () => {
     const result = await db

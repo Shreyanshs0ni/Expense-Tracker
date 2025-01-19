@@ -6,7 +6,6 @@ const CardInfo = ({ budgetList }) => {
   const [totalSpend, setTotalSpend] = useState(0);
 
   const calculateCardInfo = useCallback(() => {
-    console.log(budgetList);
     let totalBudget_ = 0;
     let totalSpend_ = 0;
     budgetList.forEach((element) => {
@@ -16,7 +15,6 @@ const CardInfo = ({ budgetList }) => {
 
     setTotalBudget(totalBudget_);
     setTotalSpend(totalSpend_);
-    console.log(totalBudget_, totalSpend_);
   }, [budgetList]);
 
   useEffect(() => {

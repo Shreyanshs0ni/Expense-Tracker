@@ -15,7 +15,6 @@ const Dashboard = () => {
   const [budgetList, setBudgetList] = useState();
   const [expensesList, setExpensesList] = useState([]);
   const { user } = useUser();
-  console.log(user);
 
   const getBudgetList = useCallback(async () => {
     const result = await db
@@ -53,7 +52,6 @@ const Dashboard = () => {
       .where(eq(Budgets.createdBy, user?.primaryEmailAddress.emailAddress))
       .orderBy(desc(Expenses.id));
     setExpensesList(result);
-    console.log("result", result);
   };
 
   return (
