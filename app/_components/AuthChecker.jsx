@@ -31,7 +31,13 @@ const AuthChecker = ({ children }) => {
   }, [isLoaded, isSignedIn, router, pathname]);
 
   if (!isLoaded) {
-    return <Loader />;
+    return (
+      <div>
+        <div className="flex h-screen items-center justify-center">
+          <Loader className="animate-spin" />
+        </div>
+      </div>
+    );
   }
 
   return null; // or you can return a placeholder component

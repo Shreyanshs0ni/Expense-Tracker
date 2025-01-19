@@ -59,7 +59,13 @@ const AddExpense = ({ budgetId, user, refreshData }) => {
         className="mt-3 w-full"
         onClick={() => addNewExpense()}
       >
-        {loading ? <Loader className="animate-spin" /> : " Add New Expense"}
+        {loading ? (
+          <div className="flex h-screen items-center justify-center">
+            <Loader className="animate-spin" />
+          </div>
+        ) : (
+          " Add New Expense"
+        )}
       </Button>
     </div>
   );
